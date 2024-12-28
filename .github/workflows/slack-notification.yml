@@ -5,10 +5,6 @@ jobs:
   run:
     name: Send a Slack notification
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      WORKFLOW_URL: ${{ github.event.workflow_run.url }}
-      GIT_COMMIT: ${{ github.sha }}
     steps:
       - name: Start the Slack workflow
         uses: slackapi/slack-github-action@v2.0.0
@@ -16,7 +12,8 @@ jobs:
           payload: |
             {
               "message": "test",
-              "workflow_url": "${WORKFLOW_URL}",
-              "commit": "${GIT_COMMIT}"
+              "workflow_url": "${{ github.event.workflow_run.url }}",
+              "commit": "${{ github.sha }}"
             }
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: webhook-trigger
