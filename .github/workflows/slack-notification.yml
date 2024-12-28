@@ -12,7 +12,7 @@ jobs:
           payload: |
             {
               "message": "test",
-              "workflow_url": "${{ github.event.workflow_run.url }}",
+              "workflow_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
               "commit": "${{ github.sha }}"
             }
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
