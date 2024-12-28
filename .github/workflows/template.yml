@@ -62,7 +62,7 @@ jobs:
       - name: output-env
         run: echo "${RESULT}"
   comment-to-pr:
-    if: ${{ github.event_name }} == 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read        # ソースコードの読み込みを許可
