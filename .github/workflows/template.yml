@@ -1,32 +1,46 @@
 name: GitHub Actions Template        # Workflow name
-run-name: Run by ${{ github.actor }} # Workflow run name
+run-name: Run by @${{ github.actor }} # Workflow run name
 
-# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/triggering-a-workflow
-on:                                  # Workflow events
-  workflow_dispatch:                 # Manual event trigger
+# https://docs.github.com/ja/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
+on:
+  workflow_dispatch:                 # Manual event
     inputs:                          # Input parameters  
       env:
         description: 'Environment to deploy to'
         required: true
         default: 'dev'
-  push:                              # This is a push event
+  push:                              # Push event
     branches:
       - main
-  pull_request:                      # This is a pull request event
+  pull_request:                      # PR event
     branches:
       - main
-  # schedule:                           # Scheduled event trigger
-  #   - cron: '0 0 * * *'
-  # branch_protection_rule:            # Branch protection rule event trigger
-  #   types:
-  #     - created
-  #     - deleted
-  #     - edited
-  check_run:                         # Check run event trigger
-    types:
-      - rerequested
-      - completed
+# ワークフローレベルで環境変数を定義
+env:
+  EXAMPLE: example
+  REPO_VAR: ${{ vars.REPO_VAR}}
+  REPO_SECRET: ${{ secrets.REPO_SECRET }}
+
 jobs:
+  # Workflowレベルで環境変数を使用する方法
+  env-with-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${EXAMPLE}"
+      - run: echo "${REPO_VAR}"
+      - run: echo "${REPO_SECRET}"
+  
+  # ジョブレベルで環境変数を使用する方法
+  env-with-job:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: main
+    steps:
+      - run: echo "${BRANCH}"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
+        
   # ステップ間で環境変数を共有する方法
   env-between-steps:                 # Job name
     runs-on: ubuntu-latest           # Runner type
@@ -48,7 +62,7 @@ jobs:
       - name: output-env
         run: echo "${RESULT}"
   comment-to-pr:
-    if: ${{ github.event_name }} == "pull_request" && ${{ github.event.action }} == "opened"
+    if: ${{ github.event_name }} == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read        # ソースコードの読み込みを許可
@@ -58,4 +72,3 @@ jobs:
       - run: gh pr comment ${{ github.event.pull_request.number }} --body "Hello, World!"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
