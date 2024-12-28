@@ -81,3 +81,9 @@ jobs:
       - run: gh pr comment ${{ github.event.pull_request.number }} --body "Hello, World!"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  annotations:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::error::This is an error"
+      - run: echo "::warning::This is a warning"
+      - run: echo "::notice::This is a notice"
