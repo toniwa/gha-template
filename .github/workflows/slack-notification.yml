@@ -13,7 +13,7 @@ jobs:
             {
               "message": "test",
               "workflow_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-              "commit": "${{ github.sha }}"
+              "commit": "${{ github.server_url }}/${{ github.repository }}/tree/${{ github.sha }}"
             }
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: webhook-trigger
