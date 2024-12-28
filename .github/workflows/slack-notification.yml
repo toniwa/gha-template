@@ -11,9 +11,9 @@ jobs:
         with:
           payload: |
             {
-              "message": "テキストの例",
-              "workflow_url": "テキストの例",
-              "commit": "テキストの例"
+              "message": "test",
+              "workflow_url": "${WORKFLOW_URL}",
+              "commit": "${GIT_COMMIT}"
             }
           webhook-type: webhook-trigger
         env:
