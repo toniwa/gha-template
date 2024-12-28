@@ -26,7 +26,7 @@ env:
 defaults:
   run:
     shell: bash
-# 並行実行の設定
+# 並行実行の設定. 特にon:pull_reuqestの場合は必須
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
