@@ -3,6 +3,8 @@ on:
   pull_request:
     paths: 
       - 'go/**/*.go'
+    branches:
+      - 'feat/*'
 jobs:
   test:
     runs-on: ubuntu-latest
