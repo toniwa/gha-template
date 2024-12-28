@@ -1,0 +1,21 @@
+name: Slack Notification
+on:
+  workflow_call:
+jobs:
+  run:
+    name: Send a Slack notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start the Slack workflow
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          payload: |
+            {
+              "message": "テキストの例",
+              "workflow_url": "テキストの例",
+              "commit": "テキストの例"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          WORKFLOW_URL: ${{ github.event.workflow_run.url }}
+          GIT_COMMIT: ${{ github.sha }}

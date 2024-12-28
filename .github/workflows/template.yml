@@ -96,3 +96,9 @@ jobs:
             echo "- first line"
             echo "- second line"
           } >> "${GITHUB_STEP_SUMMARY}"
+  call-slack-notification:
+    needs: 
+      - job-summary
+    if: ${{ success() }}
+    uses: ./.github/workflows/slack-notification.yml
+    secrets: inherit
