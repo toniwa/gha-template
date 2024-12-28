@@ -1,0 +1,60 @@
+name: GitHub Actions Template        # Workflow name
+run-name: Run by ${{ github.actor }} # Workflow run name
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/triggering-a-workflow
+on:                                  # Workflow events
+  workflow_dispatch:                 # Manual event trigger
+    inputs:                          # Input parameters  
+      env:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'dev'
+  push:                              # This is a push event
+    branches:
+      - main
+  pull_request:                      # This is a pull request event
+    branches:
+      - main
+  # schedule:                           # Scheduled event trigger
+  #   - cron: '0 0 * * *'
+  # branch_protection_rule:            # Branch protection rule event trigger
+  #   types:
+  #     - created
+  #     - deleted
+  #     - edited
+  check_run:                         # Check run event trigger
+    types:
+      - rerequested
+      - completed
+jobs:
+  # ステップ間で環境変数を共有する方法
+  env-between-steps:                 # Job name
+    runs-on: ubuntu-latest           # Runner type
+    steps:                           # Job steps
+      - name: input-env
+        id: input-env
+        run: echo "result=Test" >> "${GITHUB_OUTPUT}"   # Set output variable with Key=Value format
+      - name: output-env
+        env:
+          RESULT: ${{ steps.input-env.outputs.result }}
+        run: echo "${RESULT}"
+  # ステップ間で環境変数を共有する方法(非推奨)
+  env-between-steps-not-recommended:
+    runs-on: ubuntu-latest
+    steps:
+      - name: input-env
+        id: input-env
+        run: echo "RESULT=Test" >> "${GITHUB_ENV}"   # Set output variable with Key=Value format
+      - name: output-env
+        run: echo "${RESULT}"
+  comment-to-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read        # ソースコードの読み込みを許可
+      pull-requests: write  # PRへの書き込みを許可
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh pr comment ${{ github.event.pull_request.number }} --body "Hello, World!"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
