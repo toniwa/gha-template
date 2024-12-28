@@ -20,7 +20,16 @@ env:
   EXAMPLE: example
   REPO_VAR: ${{ vars.REPO_VAR}}
   REPO_SECRET: ${{ secrets.REPO_SECRET }}
-
+# デフォルトシェル
+# 未設定の場合： bash -e {0}
+# 設定の場合： bash --noprofile --norc -eo pipefail {0}
+defaults:
+  run:
+    shell: bash
+# 並行実行の設定
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   # Workflowレベルで環境変数を使用する方法
   env-with-workflow:
