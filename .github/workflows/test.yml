@@ -1,0 +1,19 @@
+name: Test
+run-name: Run by @${{ github.actor }}
+on:
+  pull_request:
+    paths: 
+      - 'go/**/*.go'
+    branches:
+      - 'feat/*'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4   # リポジトリからソースコードを取得
+      - name: Set up Go
+        uses: actions/setup-go@v5   # Goのセットアップ
+        with:
+          go-version: '1.22'
+      - name: Run tests             # テストを実行
+        run: go test go/excellent/*.go
