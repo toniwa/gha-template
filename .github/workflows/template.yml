@@ -65,6 +65,7 @@ jobs:
           RESULT: ${{ steps.input-env.outputs.result }}
         run: echo "${RESULT}"
     outputs:
+      # GITHUB_OUTPUTに設定した環境変数を、他のジョブで使用するために出力
       result: ${{ steps.input-env.outputs.result }}
   # ステップ間で環境変数を共有する方法(非推奨)
   env-between-steps-not-recommended:
@@ -80,6 +81,7 @@ jobs:
       - name: env-between-steps-output
         run: echo "${RESULT}"
         env:
+          # needsコンテキストを経由して、他のジョブで出力した環境変数を参照
           RESULT: ${{ needs.env-between-steps.outputs.result }}
   comment-to-pr:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
@@ -100,6 +102,8 @@ jobs:
       - run: echo "::notice::This is a notice"
   job-summary:
     runs-on: ubuntu-latest
+    needs:
+      - annotations
     steps:
       - run: |
           {
@@ -113,3 +117,11 @@ jobs:
     if: ${{ success() }}
     uses: ./.github/workflows/slack-notification.yml
     secrets: inherit
+  print:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: matrix.os
+    steps:
+      - run: echo "${RUNNER_OS}"
+        shell: bash
