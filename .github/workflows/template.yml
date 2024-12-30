@@ -30,6 +30,9 @@ defaults:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+# Jobは基本的には並列に実行される
+# needs
 jobs:
   # Workflowレベルで環境変数を使用する方法
   env-with-workflow:
@@ -61,15 +64,23 @@ jobs:
         env:
           RESULT: ${{ steps.input-env.outputs.result }}
         run: echo "${RESULT}"
+    outputs:
+      result: ${{ steps.input-env.outputs.result }}
   # ステップ間で環境変数を共有する方法(非推奨)
   env-between-steps-not-recommended:
     runs-on: ubuntu-latest
+    needs: 
+      - env-between-steps
     steps:
       - name: input-env
         id: input-env
         run: echo "RESULT=Test" >> "${GITHUB_ENV}"   # Set output variable with Key=Value format
       - name: output-env
         run: echo "${RESULT}"
+      - name: env-between-steps-output
+        run: echo "${RESULT}"
+        env:
+          RESULT: ${{ needs.env-between-steps.outputs.result }}
   comment-to-pr:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
