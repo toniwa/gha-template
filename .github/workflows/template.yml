@@ -45,14 +45,19 @@ jobs:
   # ジョブレベルで環境変数を使用する方法
   env-with-job:
     runs-on: ubuntu-latest
+    environment: TEST
     env:
       BRANCH: main
+      ENV_VAR: ${{ vars.ENV_VAR }}
+      ENV_SECRET: ${{ secrets.ENV_SECRET }}
     steps:
       - run: echo "${BRANCH}"
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH }}
-        
+      - run: echo "${ENV_VAR}"
+      - run: echo "${ENV_SECRET}"
+            
   # ステップ間で環境変数を共有する方法
   env-between-steps:                 # Job name
     runs-on: ubuntu-latest           # Runner type
@@ -117,11 +122,12 @@ jobs:
     if: ${{ success() }}
     uses: ./.github/workflows/slack-notification.yml
     secrets: inherit
-  print:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: matrix.os
-    steps:
-      - run: echo "${RUNNER_OS}"
-        shell: bash
+  # マトリックス実行. 可読性が低いので非推奨
+  # print:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest, macos-latest]
+  #   runs-on: matrix.os
+  #   steps:
+  #     - run: echo "${RUNNER_OS}"
+  #       shell: bash
