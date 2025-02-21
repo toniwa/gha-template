@@ -47,9 +47,11 @@ jobs:
         run: node --version
 
       - name: 依存関係のインストール
+        working-directory: ${{ inputs.directory }}
         run: npm ci
 
       - name: Semantic Release 実行
-        run: npx semantic-release --config ${{ github.event.inputs.directory }}/.releaserc.json
+        working-directory: ${{ github.event.inputs.package }}
+        run: npx semantic-release --config .releaserc.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
