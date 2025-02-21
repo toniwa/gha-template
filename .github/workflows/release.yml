@@ -40,11 +40,11 @@ jobs:
       - name: Show Node Version
         run: node --version
 
-      - name: 依存関係のインストール
+      - name: Install Dependencies
         working-directory: ${{ inputs.directory }}
         run: npm ci
 
-      - name: Semantic Release 実行
+      - name: Run Semantic Release
         working-directory: ${{ inputs.directory }}
         run: npx semantic-release --debug --config .releaserc.json
         env:
