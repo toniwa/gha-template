@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      # 対象の ref
+      head_ref:
+        type: string
+        description: 'Target ref. ex: github.head_ref'
+      # 対象のサブディレクトリ
+      directory:
+        type: string
+        description: 'Target directory. ex: cd <directory> && npm version patch'
+  workflow_dispatch:
+    inputs:
+      # 対象の ref
+      head_ref:
+        type: string
+        description: 'Target ref. ex: github.head_ref'
+      # 対象のサブディレクトリ
+      directory:
+        type: string
+        description: 'Target directory. ex: cd <directory> && npm version patch'
+
+jobs:
+  release:
+    name: Release applications
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+        with:
+          ref: ${{ inputs.head_ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ inputs.directory }}/.node-version
+
+      - name: Show Node Version
+        run: node --version
+
+      - name: 依存関係のインストール
+        run: npm ci
+
+      - name: Semantic Release 実行
+        run: npx semantic-release --config ${{ github.event.inputs.directory }}/.releaserc.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
