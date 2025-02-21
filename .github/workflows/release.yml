@@ -3,20 +3,12 @@ name: Release
 on:
   workflow_call:
     inputs:
-      # 対象の ref
-      head_ref:
-        type: string
-        description: 'Target ref. ex: github.head_ref'
       # 対象のサブディレクトリ
       directory:
         type: string
         description: 'Target directory. ex: cd <directory> && npm version patch'
   workflow_dispatch:
     inputs:
-      # 対象の ref
-      head_ref:
-        type: string
-        description: 'Target ref. ex: github.head_ref'
       # 対象のサブディレクトリ
       directory:
         type: string
@@ -36,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.0
         with:
-          ref: ${{ inputs.head_ref }}
+          ref: ${{ github.head_ref }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
