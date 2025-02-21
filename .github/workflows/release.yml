@@ -46,6 +46,6 @@ jobs:
 
       - name: Run Semantic Release
         working-directory: ${{ inputs.directory }}
-        run: npx semantic-release --debug --config .releaserc.json
+        run: npx semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
