@@ -1,5 +1,6 @@
 name: Release
-
+description: |
+  バージョンアップ
 on:
   workflow_call:
     inputs:
