@@ -33,7 +33,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: ${{ inputs.directory }}/.node-version
+          node-version-file: ${{ inputs.directory }}/.node_version
 
       - name: Show Node Version
         run: node --version
