@@ -19,6 +19,8 @@ jobs:
     name: Release applications
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
+    permissions:
+      contents: write
 
     strategy:
       matrix:
