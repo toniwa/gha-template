@@ -51,7 +51,7 @@ jobs:
         run: npm ci
 
       - name: Semantic Release 実行
-        working-directory: ${{ github.event.inputs.package }}
+        working-directory: ${{ inputs.directory }}
         run: npx semantic-release --config .releaserc.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
