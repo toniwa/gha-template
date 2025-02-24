@@ -5,7 +5,7 @@
     }
   ],
   "repositoryUrl": "https://github.com/toniwa/gha-template",
-  "tagFormat": "${name}@${version}",
+  "tagFormat": "app-a@${version}",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
