@@ -15,6 +15,10 @@ on:
         type: string
         description: 'Target directory. ex: cd <directory> && npm version patch'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   release:
     name: Release applications
@@ -32,6 +36,11 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - name: Show Inputs
+        run: |
+          INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
+          echo "::notice title=Input Parameters::${INPUTS}"
+
       - name: Checkout
         uses: actions/checkout@v4.1.0
         with:
