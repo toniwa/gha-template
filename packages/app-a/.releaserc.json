@@ -33,11 +33,6 @@
             "release": "patch"
           },
           {
-            "type": "perf",
-            "scope": "app-a",
-            "release": "patch"
-          },
-          {
             "type": "chore",
             "release": false
           },
@@ -59,6 +54,10 @@
           },
           {
             "scope": "build",
+            "release": false
+          },
+          {
+            "scope": "revert",
             "release": false
           }
         ]
