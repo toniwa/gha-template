@@ -1,5 +1,5 @@
 {
-  "name": "app-b",
+  "name": "@toniwa/app-b",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,14 +8,16 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toniwa/gha-template.git"
+  },
   "dependencies": {
     "typescript": "^5.7.3"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/npm": "^12.0.1",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
     "semantic-release": "^24.2.3"
   }
 }
