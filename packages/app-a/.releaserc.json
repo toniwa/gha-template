@@ -3,7 +3,50 @@
   "repositoryUrl": "https://github.com/toniwa/gha-template",
   "tagFormat": "${name}@${version}",
   "plugins": [
-    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits",
+        "releaseRules": [
+          {
+            "type": "feat",
+            "release": "minor"
+          },
+          {
+            "type": "fix",
+            "release": "minor"
+          },
+          {
+            "type": "refactor",
+            "release": "mitor"
+          },
+          {
+            "scope": "build",
+            "release": "patch"
+          },
+          {
+            "type": "perf",
+            "release": "patch"
+          },
+          {
+            "scope": "docs",
+            "release": false
+          },
+          {
+            "scope": "ci",
+            "release": false
+          },
+          {
+            "type": "test",
+            "release": false
+          },
+          {
+            "scope": "no-release",
+            "release": false
+          }
+        ]
+      }
+    ],
     "@semantic-release/release-notes-generator",
     [
       "@semantic-release/npm",
