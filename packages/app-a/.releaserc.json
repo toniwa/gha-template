@@ -1,8 +1,11 @@
 {
-  "name": "@toniwa/app-a",
-  "branches": ["main"],
+  "branches": [
+    {
+      "name": "main"
+    }
+  ],
   "repositoryUrl": "https://github.com/toniwa/gha-template",
-  "tagFormat": "${name}@${version}",
+  "tagFormat": "test@${version}",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
