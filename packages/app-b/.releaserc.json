@@ -13,31 +13,40 @@
         "preset": "conventionalcommits",
         "releaseRules": [
           {
+            "type": "BREAKING CHANGE",
+            "scope": "app-b",
+            "release": "major"
+          },
+          {
             "type": "feat",
+            "scope": "app-b",
             "release": "minor"
           },
           {
             "type": "fix",
-            "release": "minor"
-          },
-          {
-            "type": "refactor",
-            "release": "minor"
-          },
-          {
-            "scope": "build",
+            "scope": "app-b",
             "release": "patch"
           },
           {
             "type": "perf",
+            "scope": "app-b",
             "release": "patch"
+          },
+          {
+            "type": "perf",
+            "scope": "app-b",
+            "release": "patch"
+          },
+          {
+            "type": "chore",
+            "release": false
           },
           {
             "scope": "docs",
             "release": false
           },
           {
-            "scope": "ci",
+            "scope": "style",
             "release": false
           },
           {
@@ -45,7 +54,11 @@
             "release": false
           },
           {
-            "scope": "no-release",
+            "scope": "ci",
+            "release": false
+          },
+          {
+            "scope": "build",
             "release": false
           }
         ]
