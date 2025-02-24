@@ -1,4 +1,5 @@
 {
+  "name": "@toniwa/app-a",
   "branches": ["main"],
   "repositoryUrl": "https://github.com/toniwa/gha-template",
   "tagFormat": "${name}@${version}",
