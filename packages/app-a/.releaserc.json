@@ -1,0 +1,26 @@
+{
+  "branches": ["main"],
+  "repositoryUrl": "https://github.com/toniwa/gha-template",
+  "tagFormat": "${name}@${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": true,
+        "pkgRoot": ".",
+        "tarballDir": ".",
+        "registry": "https://npm.pkg.github.com"
+      }
+    ],
+    [
+      "@semantic-release/git", 
+      { 
+        "assets": ["package.json", "package-lock.json"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]" 
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}
