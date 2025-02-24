@@ -13,6 +13,10 @@
         "preset": "conventionalcommits",
         "releaseRules": [
           {
+            "scope": "app-b",
+            "release": false
+          },
+          {
             "type": "BREAKING CHANGE",
             "scope": "app-a",
             "release": "major"
