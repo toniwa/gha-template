@@ -10,7 +10,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/toniwa/gha-template.git"
+    "url": "git+https://github.com/toniwa/gha-template.git"
   },
   "dependencies": {
     "eslint": "^9.20.1"
