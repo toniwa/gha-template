@@ -36,6 +36,11 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - name: Show Inputs
+        run: |
+          INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
+          echo "::notice title=Input Parameters::${INPUTS}"
+
       - name: Checkout
         uses: actions/checkout@v4.1.0
         with:
