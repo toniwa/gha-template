@@ -33,12 +33,9 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - name: Debug Environment Variables
-        run: env
-
       - name: Show Inputs
         run: | 
-          INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
+          INPUTS=$(cat ${GITHUB_EVENT_PATH} | jq -r '.inputs // "{}"')
           echo "::notice title=Workflow Input Parameters::${INPUTS}"
 
       - name: Generate Token
