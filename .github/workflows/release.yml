@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Show Inputs
-        run: echo "::notice::This is a notice"
+        run: echo "::notice title=Input Parameters::This is a notice"
         # run: |
         #   INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
         #   echo "::notice title=Input Parameters::${INPUTS}"
