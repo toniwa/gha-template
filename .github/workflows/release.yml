@@ -56,7 +56,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: ${{ inputs.directory }}/.node_version
+          node-version-file: ${{ inputs.directory }}/.node-version
 
       - name: Show Node Version
         run: node --version
@@ -70,5 +70,6 @@ jobs:
         working-directory: ${{ inputs.directory }}
         run: npx semantic-release --debug
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          # GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_PACKAGES_NPM_INSTALL_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
