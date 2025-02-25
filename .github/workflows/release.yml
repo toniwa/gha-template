@@ -27,18 +27,19 @@ jobs:
     # permissions:
     #   packages: write
     #   contents: write # to be able to publish a GitHub release
-    #   pull-requests: write # to be able to comment on released pull requests
 
     strategy:
       matrix:
         os: [ubuntu-latest]
 
     steps:
+      - name: Debug Environment Variables
+        run: env
+
       - name: Show Inputs
-        run: echo "::notice title=Input Parameters::This is a notice"
-        # run: |
-        #   INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
-        #   echo "::notice title=Input Parameters::${INPUTS}"
+        run: | 
+          INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
+          echo "::notice title=Workflow Input Parameters::${INPUTS}"
 
       - name: Generate Token
         id: app-token
