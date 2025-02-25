@@ -27,13 +27,15 @@ jobs:
     # permissions:
     #   packages: write
     #   contents: write # to be able to publish a GitHub release
-    #   pull-requests: write # to be able to comment on released pull requests
 
     strategy:
       matrix:
         os: [ubuntu-latest]
 
     steps:
+      - name: Debug Environment Variables
+        run: env
+
       - name: Show Inputs
         run: | 
           INPUTS=$(env | grep '^INPUT_' | sed 's/^INPUT_//' | awk -F= '{print $1 "=" $2}')
