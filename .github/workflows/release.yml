@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: Show Inputs
         run: | 
-          INPUTS=$(cat ${GITHUB_EVENT_PATH} | jq -r '.inputs // "{}"')
+          INPUTS=$(cat ${GITHUB_EVENT_PATH} | jq -rc '.inputs // "{}"')
           echo "::notice title=Workflow Input Parameters::${INPUTS}"
 
       - name: Generate Token
