@@ -24,9 +24,9 @@ jobs:
     name: Release applications
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
-    # permissions:
-    #   packages: write
-    #   contents: write # to be able to publish a GitHub release
+    permissions:
+      packages: write
+      contents: write
 
     strategy:
       matrix:
@@ -68,4 +68,4 @@ jobs:
         run: npx semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          GITHUB_PACKAGES_NPM_INSTALL_AUTH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_PACKAGES_NPM_INSTALL_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
