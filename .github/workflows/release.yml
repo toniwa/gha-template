@@ -12,8 +12,11 @@ on:
     inputs:
       # 対象のサブディレクトリ
       directory:
-        type: string
+        type: choice
         description: 'Target directory. ex: cd <directory> && npm version patch'
+        options:
+          - 'packages/app-a'
+          - 'packages/app-b'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -48,7 +51,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.0
         with:
-          ref: ${{ github.head_ref }}
           persist-credentials: false
 
       - name: Setup Node
