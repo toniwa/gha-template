@@ -13,6 +13,7 @@
     "url": "git+https://github.com/toniwa/gha-template.git"
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.2",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
